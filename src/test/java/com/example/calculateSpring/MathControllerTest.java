@@ -41,4 +41,24 @@ public class MathControllerTest {
                 .andExpect(content().string("30 + 5 = 35"));
     }
 
+    @Test
+    public void VolumePostEndpoint() throws Exception {
+        this.mvc.perform(post("/math/volume/3/4/5").accept(MediaType.TEXT_PLAIN))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 3x4x5 rectangle is 60"));
+    }
+
+    @Test
+    public void VolumePatchEndpoint() throws Exception {
+        this.mvc.perform(post("/math/volume/6/7/8").accept(MediaType.TEXT_PLAIN))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 6x7x8 rectangle is 336"));
+    }
+    @Test
+    public void VolumeGetEndpoint() throws Exception {
+        this.mvc.perform(get("/math/volume/6/7/8").accept(MediaType.TEXT_PLAIN))
+                .andExpect(status().isOk())
+                .andExpect(content().string("The volume of a 6x7x8 rectangle is 336"));
+    }
+
 }

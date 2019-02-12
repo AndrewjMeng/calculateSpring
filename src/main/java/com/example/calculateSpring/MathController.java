@@ -1,6 +1,7 @@
 package com.example.calculateSpring;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
 @RequestMapping("/math")
@@ -37,6 +39,11 @@ public class MathController {
 
         MathService mathService = new MathService();
         return mathService.CalculateInfo(operation, xValue,yValue);
+    }
+    
+    @RequestMapping(value = "/volume/{x}/{y}/{z}")
+    public String getVolume(MathVolume volume){
+        return volume.buildVolume();
     }
 
 }
