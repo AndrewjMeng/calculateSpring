@@ -40,10 +40,15 @@ public class MathController {
         MathService mathService = new MathService();
         return mathService.CalculateInfo(operation, xValue,yValue);
     }
-    
+
     @RequestMapping(value = "/volume/{x}/{y}/{z}")
     public String getVolume(MathVolume volume){
         return volume.buildVolume();
+    }
+
+    @PostMapping("/area")
+    public String getArea(MathArea area){
+        return area.buildArea();
     }
 
 }

@@ -61,4 +61,38 @@ public class MathControllerTest {
                 .andExpect(content().string("The volume of a 6x7x8 rectangle is 336"));
     }
 
+    @Test
+    public void CircleAreaPostEndpoint() throws Exception {
+        this.mvc.perform(post("/math/area").accept(MediaType.APPLICATION_FORM_URLENCODED).param("type", "circle").param("radius", "4"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Area of a circle with a radius of 4 is 50.26548"));
+    }
+
+    @Test
+    public void RectangleAreaPostEndpoint() throws Exception {
+        this.mvc.perform(post("/math/area").accept(MediaType.APPLICATION_FORM_URLENCODED).param("type", "rectangle").param("width", "4").param("height", "7"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Area of a 4x7 rectangle is 28"));
+    }
+
+    @Test
+    public void InvalidRectangleAreaPostEndpoint() throws Exception {
+        this.mvc.perform(post("/math/area").accept(MediaType.APPLICATION_FORM_URLENCODED).param("type", "rectangle").param("radius", "5"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Invalid"));
+    }
+
+    @Test
+    public void InvalidCircleAreaPostEndpoint() throws Exception {
+        this.mvc.perform(post("/math/area").accept(MediaType.APPLICATION_FORM_URLENCODED).param("type", "Circle").param("radius", "5"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Invalid"));
+    }
+
+    @Test
+    public void AreaGetEndpoint404() throws Exception {
+        this.mvc.perform(get("/math/area").accept(MediaType.APPLICATION_FORM_URLENCODED).param("type", "Circle").param("radius", "5"))
+                .andExpect(status().is4xxClientError());
+    }
+
 }
